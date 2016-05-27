@@ -15,6 +15,7 @@ void jugador1 (char**m,char* movi);
 int movimiento(char* movi);
 
 void jugador2 (char**tablero,char* movi);
+int ganador (char**tablero);
 
 
 int main(int argc, char const *argv[]){
@@ -54,6 +55,16 @@ int main(int argc, char const *argv[]){
 			//////////////////////////////////////	
 				jugador1(tablero,movi);
 				Imprimir (tablero);
+				if(ganador (tablero)==1){
+					clear(); 
+					refresh();
+					printw ("\n jugador1 gano :)\n");
+					getch();
+
+
+					jugando=false;
+
+				}
 				jugador=2;	
 			}else{
 				clear();
@@ -94,6 +105,16 @@ int main(int argc, char const *argv[]){
 			//////////////////////////////////////	
 				jugador2(tablero,movi);
 				Imprimir (tablero);
+				if(ganador (tablero)==2){
+					clear(); 
+					refresh();
+					printw ("\n jugador2 gano :)\n");
+					getch();
+
+
+					jugando=false;
+
+				}
 				jugador=1;	
 			}else{
 				clear();
@@ -309,4 +330,39 @@ int movimiento(char* movi){
 	else{
 		return 0;
 	}
+}
+
+int ganador (char**tablero){
+	int x =0;
+	int cont =0;
+	int cont2=0;
+	for(int i =0;i<8;i++){
+		for(int j=0;j<8;j++){
+			if(tablero[i][j]=='B'){
+				cont++;
+
+			}
+
+
+		}
+	}
+	if(cont==0){
+		x=1;
+	}
+
+	for(int i =0;i<8;i++){
+		for(int j=0;j<8;j++){
+			if(tablero[i][j]=='N'){
+				cont2++;
+
+			}
+
+
+		}
+	}
+	if(cont2==0){
+		x=2;
+	}
+
+	return x;
 }
