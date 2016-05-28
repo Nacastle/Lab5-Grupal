@@ -262,8 +262,8 @@ void jugador2 (char**tablero,char* movi){
 	if(tablero[y2][x2]==' '){
 		if(tablero[y1][x1]=='N'){
 			tablero[y1][x1]= ' ';
-			int tempy =y2-1;
-			int tempx = x2-1;
+			int tempy =y2+1;
+			int tempx = x2+1;
 	        if(tempy <0){
 	        	tempy=0;
 
@@ -273,7 +273,7 @@ void jugador2 (char**tablero,char* movi){
 
 	        }
 			if(tablero[tempy][tempx]=='B'){
-				tablero[y2+1][x2-1]= ' ';
+				tablero[y2-1][x2+1]= ' ';
 				tablero[y2][x2]= 'N';
 			}else{
 				tablero[y2][x2]= 'N';
