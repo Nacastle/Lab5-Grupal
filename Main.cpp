@@ -11,13 +11,106 @@ void llenadodelTablero (char** m);
 void liberar_Memoria(char** m);
 void Imprimir (char** m);
 
+void jugador1 (char**m,char* movi);
+int movimiento(char* movi);
+
+void jugador2 (char**tablero,char* movi);
+
 
 int main(int argc, char const *argv[]){
 
-	char** tablero = new char*[9];
-	char nameTemp[5] = {'0','0','0','0','\0'};
+	char** tablero = new char*[8];
+	char* movi = new char[5];
 	CreandoMatriz(tablero);
 	llenadodelTablero(tablero);
+	bool jugando = true;
+	int jugador =1;
+
+	while (jugando){
+
+		if(jugador==1){
+			initscr();
+			clear();
+			clear();
+			printw ("\n jugador 1\n");
+			Imprimir (tablero);
+			move (30,0);
+			printw ("\n Ingrese la pieza a mover\n");
+			getstr(movi);
+			printw ("\n Hola\n");
+			getch();
+			
+			clear();
+			pieza x(movi);
+			int validacion = movimiento(movi);
+			refresh();
+			mvprintw(0,0,"[%d] ",validacion);
+			refresh();
+			getch();
+			if(validacion==1){
+				clear();
+				refresh();
+				getch();
+			//////////////////////////////////////	
+				jugador1(tablero,movi);
+				Imprimir (tablero);
+				jugador=2;	
+			}else{
+				clear();
+				move(31,0);
+				printw ("\n movimiento invalido\n");
+
+				getch();
+
+			}
+			getch();
+
+		}
+
+
+		if(jugador==2){
+			initscr();
+			clear();
+			clear();
+			printw ("\n jugador 2\n");
+			Imprimir (tablero);
+			move (30,0);
+			printw ("\n Ingrese la pieza a mover\n");
+			getstr(movi);
+			printw ("\n Hola\n");
+			getch();
+			
+			clear();
+			pieza x(movi);
+			int validacion = movimiento(movi);
+			refresh();
+			mvprintw(0,0,"[%d] ",validacion);
+			refresh();
+			getch();
+			if(validacion==1){
+				clear();
+				refresh();
+				getch();
+			//////////////////////////////////////	
+				jugador2(tablero,movi);
+				Imprimir (tablero);
+				jugador=1;	
+			}else{
+				clear();
+				move(31,0);
+				printw ("\n movimiento invalido\n");
+
+				getch();
+
+			}
+			getch();
+
+		}
+
+
+
+
+	}
 	
 	initscr();
 	clear();
@@ -106,4 +199,114 @@ void Imprimir (char** m){
 		printw ("\n");
 	}	
 
+}
+
+void jugador1 (char**tablero,char* movi){
+
+	int x1 = movi[0]-65;
+	int y1 = movi[1]-48;
+	int x2 = movi[2]-65;
+	int y2 = movi[3]-48;
+	initscr();
+	clear();
+	refresh();
+	mvprintw(0,0,"[%d] ",x1);
+	mvprintw(1,0,"[%d] ",y1);
+	mvprintw(2,0,"[%d] ",x2);
+	mvprintw(3,0,"[%d] ",y2);
+	getch();
+	if(tablero[y2][x2]==' '){
+		if(tablero[y1][x1]=='B'){
+			tablero[y1][x1]= ' ';
+			int tempy =y2-1;
+			int tempx = x2-1;
+	        if(tempy <0){
+	        	tempy=0;
+
+	        }
+	        if(tempx <0){
+	        	tempx=0;
+
+	        }
+			if(tablero[tempy][tempx]=='N'){
+				tablero[y2+1][x2-1]= ' ';
+				tablero[y2][x2]= 'B';
+			}else{
+				tablero[y2][x2]= 'B';
+			}
+
+		}
+
+	}
+
+
+
+
+
+}
+
+void jugador2 (char**tablero,char* movi){
+
+	int x1 = movi[0]-65;
+	int y1 = movi[1]-48;
+	int x2 = movi[2]-65;
+	int y2 = movi[3]-48;
+	initscr();
+	clear();
+	refresh();
+	mvprintw(0,0,"[%d] ",x1);
+	mvprintw(1,0,"[%d] ",y1);
+	mvprintw(2,0,"[%d] ",x2);
+	mvprintw(3,0,"[%d] ",y2);
+	getch();
+	if(tablero[y2][x2]==' '){
+		if(tablero[y1][x1]=='N'){
+			tablero[y1][x1]= ' ';
+			int tempy =y2-1;
+			int tempx = x2-1;
+	        if(tempy <0){
+	        	tempy=0;
+
+	        }
+	        if(tempx <0){
+	        	tempx=0;
+
+	        }
+			if(tablero[tempy][tempx]=='B'){
+				tablero[y2+1][x2-1]= ' ';
+				tablero[y2][x2]= 'N';
+			}else{
+				tablero[y2][x2]= 'N';
+			}
+
+		}
+
+	}
+
+
+	
+
+
+
+
+
+}
+
+int movimiento(char* movi){
+	int x1= 0;
+	int x2= 0;
+	int y1=0;
+	int y2=0;
+	x1 = movi[0]-65;
+	y1 = movi[1]-48;
+	x2 = movi[2]-65;
+	y2 = movi[3]-48;
+	int cordenadax = abs(x2-x1);
+	int cordenaday = abs(y2-y1);
+	if(cordenaday == cordenadax){
+		return 1;
+	}
+	else{
+		return 0;
+	}
 }

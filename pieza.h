@@ -3,12 +3,11 @@
 
 
 class pieza{
-	char movi[5];
+	char* movi;
 	
 public:
 	pieza();
-	pieza(char movi[]);
-	int movimiento(char* movi);
+	pieza(char* movi);
 	//int movimiento(char[]);
 };
 #endif
